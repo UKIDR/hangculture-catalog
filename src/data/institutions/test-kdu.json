@@ -1,0 +1,10 @@
+{
+  "title": "Тестовое учреждение культуры",
+  "slug": "test-kdu",
+  "category": "kdu",
+  "nasleg": "Тестовый наслег",
+  "settlement": "Тестовый населённый пункт",
+  "birthday_public": false,
+  "published": true,
+  "demo": true
+}
