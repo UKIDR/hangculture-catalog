@@ -1,0 +1,42 @@
+---
+import site from '../data/site.json';
+import { basePath } from '../lib/institutions.js';
+const { title = site.title, description = site.introduction } = Astro.props;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#173a37" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href={basePath('favicon.svg')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href={basePath('styles.css')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={basePath('')} aria-label="На главную страницу справочника">
+          <span class="brand-symbol" aria-hidden="true">К</span>
+          <span class="brand-text"><strong>Культура · Хангалас</strong><small>Электронный справочник</small></span>
+        </a>
+        <nav aria-label="Основная навигация" class="top-nav">
+          <a href={basePath('')}>Учреждения</a>
+          <a href={basePath('') + '#about'}>О справочнике</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div><strong>{site.office}</strong><p>{site.subtitle}. Информационный справочник.</p></div>
+        <span>© {new Date().getFullYear()}</span>
+      </div>
+    </footer>
+  </body>
+</html>

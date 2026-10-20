@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getInstitutions, categoryName, basePath, mediaPath, safeUrl } from '../../lib/institutions.js';
+import { isValidBirthday, MONTHS_RU } from '../../lib/birthdays.js';
+import site from '../../data/site.json';
+export function getStaticPaths() {
+  return getInstitutions().map((institution) => ({
+    params: { slug: institution.slug },
+    props: { institution },
+  }));
+}
+const { institution: item } = Astro.props;
+const website = safeUrl(item.website);
+const socialUrl = safeUrl(item.social_url);
+const hasContacts = item.phone || item.email || website || socialUrl || item.hours;
+const showBirthday = site.show_birthdays === true && item.birthday_public === true && isValidBirthday(item.birthday_day, item.birthday_month) && !item.demo;
+---
+<Layout title={`${item.title} — Справочник учреждений культуры`} description={item.description || item.title}>
+  <section class="detail-intro"><div class="container">
+    <nav class="breadcrumbs" aria-label="Навигационная цепочка"><a href={basePath('')}>Все учреждения</a><span aria-hidden="true">/</span><span>{categoryName(item.category)}</span></nav>
+    <div class="detail-kicker">{categoryName(item.category)} {item.demo && <span class="demo-badge demo-inline">Демонстрационная запись</span>}</div>
+    <h1>{item.title}</h1>
+    <p class="detail-location">{[item.nasleg, item.settlement].filter(Boolean).join(' · ') || 'Местоположение уточняется'}</p>
+  </div></section>
+  <section class="detail-content"><div class="container detail-grid">
+    <div class="detail-main">
+      <div class="detail-photo">
+        {item.cover_image ? <img src={mediaPath(item.cover_image)} alt={`Здание учреждения: ${item.title}`} /> : <div class="placeholder-art placeholder-large" aria-label="Фотография учреждения пока не добавлена"><span class="placeholder-ridge"></span><span class="placeholder-building"></span><span class="no-photo">Фотография учреждения пока не загружена</span></div>}
+      </div>
+      <div class="content-block"><p class="overline">ИНФОРМАЦИЯ</p><h2>Об учреждении</h2><p>{item.description || 'Описание учреждения пока не добавлено.'}</p></div>
+      {(item.address || item.founded || item.nasleg || item.settlement) && <div class="content-block"><p class="overline">ОСНОВНЫЕ СВЕДЕНИЯ</p><h2>Общая информация</h2><dl class="info-list">{item.nasleg && <div><dt>Наслег</dt><dd>{item.nasleg}</dd></div>}{item.settlement && <div><dt>Населённый пункт</dt><dd>{item.settlement}</dd></div>}{item.address && <div><dt>Адрес</dt><dd>{item.address}</dd></div>}{item.founded && <div><dt>Год основания</dt><dd>{item.founded}</dd></div>}</dl></div>}
+    </div>
+    <aside class="detail-side">
+      <section class="side-panel"><p class="overline">РУКОВОДСТВО</p><h2>Руководитель</h2>
+        {item.director_image && <img class="director-photo" src={mediaPath(item.director_image)} alt={`Руководитель: ${item.director_name || ''}`} />}
+        <strong class="director-name">{item.director_name || 'Информация уточняется'}</strong><p class="director-role">{item.director_position || 'Руководитель учреждения'}</p>{showBirthday && <p class="director-birthday">День рождения: {Number(item.birthday_day)} {MONTHS_RU[Number(item.birthday_month)-1]}</p>}
+      </section>
+      {hasContacts && <section class="side-panel"><p class="overline">СВЯЗЬ</p><h2>Контакты</h2><dl class="contact-list">
+        {item.phone && <div><dt>Рабочий телефон</dt><dd><a href={`tel:${String(item.phone).replace(/[^+\d]/g,'')}`}>{item.phone}</a></dd></div>}
+        {item.email && <div><dt>Электронная почта</dt><dd><a href={`mailto:${item.email}`}>{item.email}</a></dd></div>}
+        {website && <div><dt>Официальный сайт</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">Перейти на сайт ↗</a></dd></div>}
+        {socialUrl && <div><dt>Социальные сети</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу ↗</a></dd></div>}
+        {item.hours && <div><dt>Режим работы</dt><dd>{item.hours}</dd></div>}
+      </dl></section>}
+    </aside>
+  </div></section>
+  <section class="back-strip"><div class="container"><a href={basePath('')}>← Вернуться к списку учреждений</a></div></section>
+</Layout>

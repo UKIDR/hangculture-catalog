@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+import { getInstitutions, categoryName, mediaPath, basePath } from '../lib/institutions.js';
+import { publicBirthdays, MONTHS_RU } from '../lib/birthdays.js';
+const institutions = getInstitutions();
+const naslegs = [...new Set(institutions.map((i) => i.nasleg).filter((x) => x && x !== 'Название наслега'))].sort((a, b) => a.localeCompare(b, 'ru'));
+const uniqueInstitutions = institutions.filter((i) => !i.demo);
+const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
+---
+<Layout title={site.title}>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span>{site.subtitle}</div>
+        <h1>Культура улуса.<br /><em>В одном месте.</em></h1>
+        <p>{site.introduction}</p>
+        <a href="#catalog" class="hero-link">Перейти к учреждениям <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-graphic" aria-hidden="true"><div class="graphic-frame"><span>ХАҤАЛАС</span><b>01</b><div class="graphic-mark"></div><small>КУЛЬТУРА / СПРАВОЧНИК</small></div></div>
+    </div>
+  </section>
+  <section class="directory section" id="catalog">
+    <div class="container">
+      <div class="section-heading"><div><p class="overline">КАТАЛОГ</p><h2>Учреждения культуры</h2><p class="section-note">Найдите организацию по названию, населенному пункту или руководителю.</p></div><div class="count-box"><strong>{uniqueInstitutions.length}</strong><span>учреждений в справочнике*</span></div></div>
+      <div class="filters" role="search">
+        <label class="search-field"><span class="sr-only">Поиск по справочнику</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Название, наслег, руководитель..." autocomplete="off" /></label>
+        <label class="select-field"><span class="sr-only">Тип учреждения</span><select id="category"><option value="all">Все категории</option><option value="kdu">КДУ</option><option value="podved">Подведомственные</option></select></label>
+        <label class="select-field"><span class="sr-only">Наслег</span><select id="nasleg"><option value="all">Все наслеги</option>{naslegs.map(n => <option value={n}>{n}</option>)}</select></label>
+      </div>
+      <p class="results-label" id="result-count" aria-live="polite">Найдено: {institutions.length}</p>
+      <div id="cards" class="cards">
+        {institutions.map((item) => (
+          <a class="institution-card" href={basePath(`uchrezhdeniya/${item.slug}/`)} data-search={[item.title,item.nasleg,item.settlement,item.director_name,item.address].join(' ').toLowerCase()} data-category={item.category} data-nasleg={item.nasleg || ''}>
+            <div class:list={['card-image', {'is-placeholder': !item.cover_image}]}>
+              {item.cover_image ? <img src={mediaPath(item.cover_image)} loading="lazy" alt={`Здание: ${item.title}`} /> : <div class="placeholder-art" aria-hidden="true"><span class="placeholder-ridge"></span><span class="placeholder-building"></span></div>}
+              {item.demo && <span class="demo-badge">Демо</span>}
+            </div>
+            <div class="card-body"><span class="card-category">{categoryName(item.category)}</span><h3>{item.title}</h3><div class="card-meta"><span>{[item.nasleg, item.settlement].filter(Boolean).join(' · ') || 'Расположение уточняется'}</span>{item.director_name && <span>Руководитель: {item.director_name}</span>}</div><span class="card-action">Открыть карточку <span aria-hidden="true">↗</span></span></div>
+          </a>
+        ))}
+      </div>
+      <div id="no-results" class="empty-state" hidden><h3>Ничего не найдено</h3><p>Попробуйте изменить запрос или убрать фильтры.</p></div>
+      <p class="footnote">* Демонстрационные учреждения в этом счётчике не учитываются. Удалите примеры перед официальной публикацией.</p>
+    </div>
+  </section>
+  {birthdayPeople.length > 0 && <section class="birthdays-section" id="birthdays" hidden>
+    <div class="container">
+      <div class="section-heading"><div><p class="overline">КАЛЕНДАРЬ</p><h2>Ближайшие дни рождения</h2><p class="section-note">Руководители учреждений, у которых день рождения в ближайшие 30 дней.</p></div></div>
+      <ul id="birthday-items" class="birthday-list">
+        {birthdayPeople.map((person) => <li class="birthday-entry" data-day={person.birthday_day} data-month={person.birthday_month}>
+          <div class="birthday-date"><strong>{String(person.birthday_day).padStart(2, '0')}</strong><span>{MONTHS_RU[Number(person.birthday_month)-1]}</span></div>
+          <div class="birthday-person"><a href={basePath(`uchrezhdeniya/${person.slug}/`)}>{person.director_name}</a><span>{person.title}</span></div>
+          <small class="birthday-countdown" aria-live="off"></small>
+        </li>)}
+      </ul>
+    </div>
+  </section>}
+  <section class="about-section" id="about"><div class="container about-inner"><div><p class="overline">О ПРОЕКТЕ</p><h2>Актуальная информация — в едином пространстве</h2></div><p>Справочник объединяет сведения о культурно-досуговых учреждениях и подведомственных организациях Хангаласского улуса. Информацию следует сверять с официальными источниками. Персональные сведения публикуются только при наличии законных оснований.</p></div></section>
+  <script>
+    const input = document.querySelector('#search');
+    const category = document.querySelector('#category');
+    const nasleg = document.querySelector('#nasleg');
+    const cards = [...document.querySelectorAll('.institution-card')];
+    const count = document.querySelector('#result-count');
+    const empty = document.querySelector('#no-results');
+    const normalize = (text) => String(text || '').toLocaleLowerCase('ru').replace(/ё/g, 'е').trim();
+    function filterCards() {
+      const query = normalize(input.value);
+      let found = 0;
+      cards.forEach((card) => {
+        const visible = normalize(card.dataset.search).includes(query)
+          && (category.value === 'all' || card.dataset.category === category.value)
+          && (nasleg.value === 'all' || card.dataset.nasleg === nasleg.value);
+        card.hidden = !visible;
+        if (visible) found++;
+      });
+      count.textContent = `Найдено: ${found}`;
+      empty.hidden = found !== 0;
+    }
+    [input, category, nasleg].forEach(el => el.addEventListener('input', filterCards));
+    // Calculate upcoming dates in the visitor's browser. This continues to work
+    // after the new year without rebuilding the static GitHub Pages site.
+    const birthdaySection = document.querySelector('#birthdays');
+    const birthdayItems = [...document.querySelectorAll('.birthday-entry')];
+    if (birthdaySection && birthdayItems.length) {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const upcoming = [];
+      for (const item of birthdayItems) {
+        const day = Number(item.dataset.day);
+        const month = Number(item.dataset.month);
+        let next = null;
+        for (let year = today.getFullYear(); year < today.getFullYear() + 5; year++) {
+          const attempt = new Date(year, month - 1, day);
+          if (attempt.getMonth() === month - 1 && attempt.getDate() === day && attempt >= today) {
+            next = attempt;
+            break;
+          }
+        }
+        const daysAway = next === null ? Infinity : Math.round((Date.UTC(next.getFullYear(), next.getMonth(), next.getDate()) - Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())) / 86400000);
+        item.hidden = daysAway > 30;
+        if (daysAway <= 30) {
+          item.querySelector('.birthday-countdown').textContent = daysAway === 0 ? 'Сегодня' : daysAway === 1 ? 'Завтра' : `Через ${daysAway} дн.`;
+          upcoming.push({item, daysAway});
+        }
+      }
+      upcoming.sort((a, b) => a.daysAway - b.daysAway);
+      const list = document.querySelector('#birthday-items');
+      upcoming.forEach(({item}) => list.appendChild(item));
+      birthdaySection.hidden = upcoming.length === 0;
+    }
+  </script>
+</Layout>

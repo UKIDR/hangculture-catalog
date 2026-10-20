@@ -1,0 +1,139 @@
+media:
+  - name: images
+    label: Фотографии
+    input: public/media
+    output: /media
+    categories: [image]
+    rename: safe
+
+content:
+  - name: institutions
+    label: Учреждения культуры
+    type: collection
+    path: src/data/institutions
+    format: json
+    filename:
+      template: "{fields.slug}.json"
+      field: false
+    view:
+      primary: title
+      fields: [title, category, nasleg, settlement, published]
+      search: [title, nasleg, settlement, director_name]
+      sort: [title, nasleg]
+    fields:
+      - name: title
+        label: Название учреждения
+        type: string
+        required: true
+      - name: slug
+        label: Короткий адрес страницы (латиницей)
+        type: string
+        required: true
+        pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+        description: "Например: pokrovsk-dk. После публикации не меняйте, чтобы старые ссылки работали."
+      - name: category
+        label: Тип учреждения
+        type: select
+        required: true
+        options:
+          values:
+            - name: kdu
+              label: Культурно-досуговое учреждение
+            - name: podved
+              label: Подведомственная организация
+      - name: nasleg
+        label: Наслег
+        type: string
+      - name: settlement
+        label: Населённый пункт
+        type: string
+      - name: address
+        label: Адрес
+        type: string
+      - name: cover_image
+        label: Фотография учреждения
+        type: image
+        options:
+          media: images
+      - name: director_name
+        label: ФИО руководителя
+        type: string
+      - name: director_position
+        label: Должность руководителя
+        type: string
+      - name: director_image
+        label: Фотография руководителя
+        type: image
+        options:
+          media: images
+      - name: phone
+        label: Рабочий телефон
+        type: string
+      - name: email
+        label: Рабочая электронная почта
+        type: string
+      - name: website
+        label: Официальный сайт (полная https-ссылка)
+        type: string
+      - name: social_url
+        label: Социальная сеть (полная https-ссылка)
+        type: string
+      - name: hours
+        label: Режим работы
+        type: text
+      - name: founded
+        label: Год основания
+        type: string
+      - name: description
+        label: Краткая информация об учреждении
+        type: text
+      # Пустые поля: не вводите даты до получения разрешения.
+      # В публичном GitHub даже скрытая запись остается доступной в исходниках.
+      - name: birthday_day
+        label: День рождения руководителя (число, без года)
+        type: number
+        description: "Пока оставьте пустым. Заполняйте после получения разрешения на публичное размещение."
+        options:
+          min: 1
+          max: 31
+      - name: birthday_month
+        label: Месяц рождения руководителя (1-12)
+        type: number
+        description: "Пока оставьте пустым. Например, 3 = март."
+        options:
+          min: 1
+          max: 12
+      - name: birthday_public
+        label: Разрешено показывать день рождения
+        type: boolean
+        description: "Включите только после получения разрешения; не помещайте непубличные даты в GitHub."
+      - name: published
+        label: Опубликовать на сайте
+        type: boolean
+        description: "Отключите, чтобы скрыть карточку и её страницу."
+      - name: demo
+        label: Демонстрационная запись (отмечается на сайте)
+        type: boolean
+
+  - name: site
+    label: Настройки сайта
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: title
+        label: Название сайта
+        type: string
+      - name: subtitle
+        label: Подзаголовок
+        type: string
+      - name: introduction
+        label: Вступительный текст
+        type: text
+      - name: office
+        label: Организация-составитель
+        type: string
+      - name: show_birthdays
+        label: Показывать блок ближайших дней рождения на сайте
+        type: boolean
+        description: "Пока оставьте выключенным. Блок появится при наличии разрешенных дат."
