@@ -115,6 +115,63 @@ content:
         label: Демонстрационная запись (отмечается на сайте)
         type: boolean
 
+  - name: management
+    label: Об управлении (УКиДР)
+    type: file
+    path: src/data/management.json
+    format: json
+    fields:
+      - name: name
+        label: Полное наименование УКиДР
+        type: string
+        required: true
+      - name: short_name
+        label: Краткое наименование
+        type: string
+      - name: description
+        label: Об управлении
+        type: text
+      - name: building_image
+        label: Фото здания управления
+        type: image
+        options:
+          media: images
+      - name: head_name
+        label: ФИО руководителя управления
+        type: string
+      - name: head_position
+        label: Должность руководителя
+        type: string
+      - name: head_image
+        label: Фото руководителя управления
+        type: image
+        options:
+          media: images
+      - name: settlement
+        label: Населённый пункт
+        type: string
+      - name: address
+        label: Адрес управления
+        type: string
+      - name: phone
+        label: Рабочий телефон
+        type: string
+      - name: email
+        label: Рабочая электронная почта
+        type: string
+      - name: website
+        label: Официальный сайт (https-ссылка)
+        type: string
+      - name: social_url
+        label: Социальные сети (https-ссылка)
+        type: string
+      - name: hours
+        label: Режим работы
+        type: text
+      - name: activities
+        label: Направления деятельности
+        type: text
+
   - name: site
     label: Настройки сайта
     type: file

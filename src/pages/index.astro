@@ -12,12 +12,17 @@ const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-line"></span>{site.subtitle}</div>
-        <h1>Культура улуса.<br /><em>В одном месте.</em></h1>
+        <div class="eyebrow"><span class="eyebrow-line"></span>Официальный информационный ресурс · {site.subtitle}</div>
+        <h1>Электронный справочник<br /><em>учреждений культуры</em><br />Хангаласского улуса</h1>
         <p>{site.introduction}</p>
         <a href="#catalog" class="hero-link">Перейти к учреждениям <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="hero-graphic" aria-hidden="true"><div class="graphic-frame"><span>ХАҤАЛАС</span><b>01</b><div class="graphic-mark"></div><small>КУЛЬТУРА / СПРАВОЧНИК</small></div></div>
+      <aside class="hero-aside" aria-label="Разделы справочника">
+        <span class="hero-aside-overline">НАВИГАЦИЯ ПО СПРАВОЧНИКУ</span>
+        <a href="#catalog" class="hero-aside-item" data-hero-category="kdu"><span>01</span><strong>Культурно-досуговые учреждения</strong><span aria-hidden="true">↗</span></a>
+        <a href="#catalog" class="hero-aside-item" data-hero-category="podved"><span>02</span><strong>Подведомственные организации</strong><span aria-hidden="true">↗</span></a>
+        <a href={basePath('upravlenie/')} class="hero-aside-bottom">Об управлении культуры <span aria-hidden="true">↗</span></a>
+      </aside>
     </div>
   </section>
   <section class="directory section" id="catalog">
@@ -56,7 +61,7 @@ const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
       </ul>
     </div>
   </section>}
-  <section class="about-section" id="about"><div class="container about-inner"><div><p class="overline">О ПРОЕКТЕ</p><h2>Актуальная информация — в едином пространстве</h2></div><p>Справочник объединяет сведения о культурно-досуговых учреждениях и подведомственных организациях Хангаласского улуса. Информацию следует сверять с официальными источниками. Персональные сведения публикуются только при наличии законных оснований.</p></div></section>
+  <section class="about-section" id="about"><div class="container about-inner"><div><p class="overline">О ПРОЕКТЕ</p><h2>Актуальная информация — в едином пространстве</h2></div><p>Ресурс объединяет сведения о культурно-досуговых учреждениях и подведомственных организациях Хангаласского улуса. Сведения об управлении культуры размещены на отдельной странице. Персональная информация публикуется только при наличии соответствующих правовых оснований.</p></div></section>
   <script>
     const input = document.querySelector('#search');
     const category = document.querySelector('#category');
@@ -79,6 +84,10 @@ const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
       empty.hidden = found !== 0;
     }
     [input, category, nasleg].forEach(el => el.addEventListener('input', filterCards));
+    document.querySelectorAll('[data-hero-category]').forEach((link) => link.addEventListener('click', () => {
+      category.value = link.dataset.heroCategory;
+      filterCards();
+    }));
     // Calculate upcoming dates in the visitor's browser. This continues to work
     // after the new year without rebuilding the static GitHub Pages site.
     const birthdaySection = document.querySelector('#birthdays');

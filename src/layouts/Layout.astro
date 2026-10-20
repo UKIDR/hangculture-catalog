@@ -9,7 +9,7 @@ const { title = site.title, description = site.introduction } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#173a37" />
+    <meta name="theme-color" content="#233b36" />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href={basePath('favicon.svg')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,11 +22,12 @@ const { title = site.title, description = site.introduction } = Astro.props;
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href={basePath('')} aria-label="На главную страницу справочника">
-          <span class="brand-symbol" aria-hidden="true">К</span>
-          <span class="brand-text"><strong>Культура · Хангалас</strong><small>Электронный справочник</small></span>
+          <img class="brand-logo" src={basePath('media/ukidr-logo.png')} width="66" height="66" alt="Эмблема УКиДР Хангаласского улуса" />
+          <span class="brand-text"><strong>Учреждения культуры<br />Хангаласского улуса</strong><small>Электронный справочник · УКиДР</small></span>
         </a>
         <nav aria-label="Основная навигация" class="top-nav">
-          <a href={basePath('')}>Учреждения</a>
+          <a href={basePath('') + '#catalog'}>Учреждения</a>
+          <a href={basePath('upravlenie/')}>Об управлении</a>
           <a href={basePath('') + '#about'}>О справочнике</a>
         </nav>
       </div>
@@ -34,7 +35,7 @@ const { title = site.title, description = site.introduction } = Astro.props;
     <main id="main"><slot /></main>
     <footer class="footer">
       <div class="container footer-inner">
-        <div><strong>{site.office}</strong><p>{site.subtitle}. Информационный справочник.</p></div>
+        <div class="footer-agency"><img src={basePath('media/ukidr-logo.png')} width="52" height="52" alt="" loading="lazy" /><div><strong>{site.office}</strong><p>Электронный справочник учреждений культуры Хангаласского улуса</p></div></div>
         <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>

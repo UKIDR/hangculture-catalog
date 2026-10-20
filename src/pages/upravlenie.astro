@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import mgmt from '../data/management.json';
+import { basePath, mediaPath, safeUrl } from '../lib/institutions.js';
+const website = safeUrl(mgmt.website);
+const socialUrl = safeUrl(mgmt.social_url);
+const hasContacts = mgmt.phone || mgmt.email || website || socialUrl || mgmt.hours;
+---
+<Layout title={`Об управлении — Электронный справочник учреждений культуры`} description={mgmt.name}>
+  <section class="detail-intro management-intro"><div class="container">
+    <nav class="breadcrumbs" aria-label="Навигационная цепочка"><a href={basePath('')}>Главная</a><span aria-hidden="true">/</span><span>Об управлении</span></nav>
+    <div class="management-intro-row">
+      <img class="management-emblem" src={basePath('media/ukidr-logo.png')} width="140" height="140" alt="Эмблема УКиДР Хангаласского улуса" />
+      <div><div class="detail-kicker">ОРГАН УПРАВЛЕНИЯ</div><h1>{mgmt.short_name || 'Управление культуры и духовного развития'}</h1><p class="management-full-name">{mgmt.name}</p></div>
+    </div>
+  </div></section>
+  <section class="detail-content"><div class="container detail-grid">
+    <div class="detail-main">
+      {mgmt.building_image && <div class="detail-photo"><img src={mediaPath(mgmt.building_image)} alt="Здание управления культуры" /></div>}
+      <div class="content-block management-first-block"><p class="overline">ОБ УПРАВЛЕНИИ</p><h2>Общая информация</h2><p>{mgmt.description || 'Информация об управлении дополняется.'}</p></div>
+      {mgmt.activities && <div class="content-block"><p class="overline">ДЕЯТЕЛЬНОСТЬ</p><h2>Направления работы</h2><p>{mgmt.activities}</p></div>}
+      {(mgmt.address || mgmt.settlement) && <div class="content-block"><p class="overline">РАСПОЛОЖЕНИЕ</p><h2>Адрес</h2><dl class="info-list">{mgmt.settlement && <div><dt>Населённый пункт</dt><dd>{mgmt.settlement}</dd></div>}{mgmt.address && <div><dt>Адрес</dt><dd>{mgmt.address}</dd></div>}</dl></div>}
+    </div>
+    <aside class="detail-side">
+      <section class="side-panel"><p class="overline">РУКОВОДСТВО</p><h2>Руководитель управления</h2>
+        {mgmt.head_image && <img class="director-photo" src={mediaPath(mgmt.head_image)} alt={`Руководитель: ${mgmt.head_name || ''}`} />}
+        <strong class="director-name">{mgmt.head_name || 'Информация уточняется'}</strong>
+        <p class="director-role">{mgmt.head_position || 'Руководитель управления'}</p>
+      </section>
+      {hasContacts && <section class="side-panel"><p class="overline">ОФИЦИАЛЬНЫЕ ДАННЫЕ</p><h2>Контакты</h2><dl class="contact-list">
+        {mgmt.phone && <div><dt>Рабочий телефон</dt><dd><a href={`tel:${String(mgmt.phone).replace(/[^+\d]/g,'')}`}>{mgmt.phone}</a></dd></div>}
+        {mgmt.email && <div><dt>Электронная почта</dt><dd><a href={`mailto:${mgmt.email}`}>{mgmt.email}</a></dd></div>}
+        {website && <div><dt>Официальный сайт</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">Перейти на сайт ↗</a></dd></div>}
+        {socialUrl && <div><dt>Социальная сеть</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу ↗</a></dd></div>}
+        {mgmt.hours && <div><dt>Режим работы</dt><dd>{mgmt.hours}</dd></div>}
+      </dl></section>}
+      {!hasContacts && <section class="side-panel"><p class="overline">КОНТАКТЫ</p><h2>Как связаться</h2><p class="director-role">Контактные сведения дополняются.</p></section>}
+    </aside>
+  </div></section>
+  <section class="back-strip"><div class="container"><a href={basePath('')}>← Вернуться к справочнику</a></div></section>
+</Layout>
