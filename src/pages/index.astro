@@ -12,17 +12,11 @@ const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="eyebrow-line"></span>Официальный информационный ресурс · {site.subtitle}</div>
-        <h1>Электронный справочник<br /><em>учреждений культуры</em><br />Хангаласского улуса</h1>
+        <div class="eyebrow"><span class="eyebrow-line"></span>ХАНГАЛАССКИЙ УЛУС · УКиДР</div>
+        <h1>Электронный справочник <em>учреждений культуры</em> Хангаласского улуса</h1>
         <p>{site.introduction}</p>
         <a href="#catalog" class="hero-link">Перейти к учреждениям <span aria-hidden="true">↗</span></a>
       </div>
-      <aside class="hero-aside" aria-label="Разделы справочника">
-        <span class="hero-aside-overline">НАВИГАЦИЯ ПО СПРАВОЧНИКУ</span>
-        <a href="#catalog" class="hero-aside-item" data-hero-category="kdu"><span>01</span><strong>Культурно-досуговые учреждения</strong><span aria-hidden="true">↗</span></a>
-        <a href="#catalog" class="hero-aside-item" data-hero-category="podved"><span>02</span><strong>Подведомственные организации</strong><span aria-hidden="true">↗</span></a>
-        <a href={basePath('upravlenie/')} class="hero-aside-bottom">Об управлении культуры <span aria-hidden="true">↗</span></a>
-      </aside>
     </div>
   </section>
   <section class="directory section" id="catalog">
@@ -84,10 +78,6 @@ const birthdayPeople = publicBirthdays(institutions, site.show_birthdays);
       empty.hidden = found !== 0;
     }
     [input, category, nasleg].forEach(el => el.addEventListener('input', filterCards));
-    document.querySelectorAll('[data-hero-category]').forEach((link) => link.addEventListener('click', () => {
-      category.value = link.dataset.heroCategory;
-      filterCards();
-    }));
     // Calculate upcoming dates in the visitor's browser. This continues to work
     // after the new year without rebuilding the static GitHub Pages site.
     const birthdaySection = document.querySelector('#birthdays');

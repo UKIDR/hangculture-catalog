@@ -15,7 +15,7 @@ const { title = site.title, description = site.introduction } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href={basePath('styles.css')} />
+    <link rel="stylesheet" href={`${basePath('styles.css')}?v=20261020-3`} />
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -23,7 +23,7 @@ const { title = site.title, description = site.introduction } = Astro.props;
       <div class="container header-inner">
         <a class="brand" href={basePath('')} aria-label="На главную страницу справочника">
           <img class="brand-logo" src={basePath('media/ukidr-logo.png')} width="66" height="66" alt="Эмблема УКиДР Хангаласского улуса" />
-          <span class="brand-text"><strong>Учреждения культуры<br />Хангаласского улуса</strong><small>Электронный справочник · УКиДР</small></span>
+          <span class="brand-text"><strong>Электронный справочник<br />учреждений культуры Хангаласского улуса</strong><small>Управление культуры и духовного развития · Хангаласский улус</small></span>
         </a>
         <nav aria-label="Основная навигация" class="top-nav">
           <a href={basePath('') + '#catalog'}>Учреждения</a>
