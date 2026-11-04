@@ -1,0 +1,20 @@
+{
+  "title": "МБУ ДО \"Покровская детская школа искусств\"",
+  "slug": "dshi",
+  "category": "podved",
+  "nasleg": "ГП \"Город Покровск\"",
+  "settlement": "г. Покровск",
+  "address": "Республика Саха (Якутия), Хангаласский улус, г. Покровск, Улица Братьев Ксенофонтовых, 35",
+  "cover_image": "/media/dshi.jpg",
+  "director_name": "Алексеева Вероника Владимировна",
+  "director_position": "Директор",
+  "phone": "+7(41144)43-5-64",
+  "email": "pokrdshi@mail.ru",
+  "website": "https://pokr-dshi.obr.sakha.gov.ru/",
+  "social_url": "https://vk.ru/pokrdshi",
+  "max_url": "https://max.ru/id1431009401_gos",
+  "hours": "Пн-Сб: 08:00–20:00\nВс: Выходной",
+  "birthday_public": false,
+  "published": true,
+  "demo": false
+}
