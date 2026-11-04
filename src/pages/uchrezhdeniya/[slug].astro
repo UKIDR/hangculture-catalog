@@ -12,7 +12,8 @@ export function getStaticPaths() {
 const { institution: item } = Astro.props;
 const website = safeUrl(item.website);
 const socialUrl = safeUrl(item.social_url);
-const hasContacts = item.phone || item.email || website || socialUrl || item.hours;
+const maxUrl = safeUrl(item.max_url);
+const hasContacts = item.phone || item.email || website || socialUrl || maxUrl || item.hours;
 const showBirthday = site.show_birthdays === true && item.birthday_public === true && isValidBirthday(item.birthday_day, item.birthday_month) && !item.demo;
 ---
 <Layout title={`${item.title} — Справочник учреждений культуры`} description={item.description || item.title}>
@@ -39,7 +40,8 @@ const showBirthday = site.show_birthdays === true && item.birthday_public === tr
         {item.phone && <div><dt>Рабочий телефон</dt><dd><a href={`tel:${String(item.phone).replace(/[^+\d]/g,'')}`}>{item.phone}</a></dd></div>}
         {item.email && <div><dt>Электронная почта</dt><dd><a href={`mailto:${item.email}`}>{item.email}</a></dd></div>}
         {website && <div><dt>Официальный сайт</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">Перейти на сайт ↗</a></dd></div>}
-        {socialUrl && <div><dt>Социальные сети</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу ↗</a></dd></div>}
+        {socialUrl && <div><dt>Страница VK</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу VK ↗</a></dd></div>}
+        {maxUrl && <div><dt>Канал MAX</dt><dd><a href={maxUrl} target="_blank" rel="noopener noreferrer">Открыть канал MAX ↗</a></dd></div>}
         {item.hours && <div><dt>Режим работы</dt><dd>{item.hours}</dd></div>}
       </dl></section>}
     </aside>
