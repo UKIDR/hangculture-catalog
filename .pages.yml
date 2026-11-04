@@ -166,7 +166,10 @@ content:
         label: Официальный сайт (https-ссылка)
         type: string
       - name: social_url
-        label: Социальные сети (https-ссылка)
+        label: Страница VK (полная https-ссылка)
+        type: string
+      - name: max_url
+        label: Канал MAX (полная https-ссылка)
         type: string
       - name: hours
         label: Режим работы

@@ -4,7 +4,8 @@ import mgmt from '../data/management.json';
 import { basePath, mediaPath, safeUrl } from '../lib/institutions.js';
 const website = safeUrl(mgmt.website);
 const socialUrl = safeUrl(mgmt.social_url);
-const hasContacts = mgmt.phone || mgmt.email || website || socialUrl || mgmt.hours;
+const maxUrl = safeUrl(mgmt.max_url);
+const hasContacts = mgmt.phone || mgmt.email || website || socialUrl || maxUrl || mgmt.hours;
 ---
 <Layout title={`Об управлении — Электронный справочник учреждений культуры`} description={mgmt.name}>
   <section class="detail-intro management-intro"><div class="container">
@@ -31,7 +32,8 @@ const hasContacts = mgmt.phone || mgmt.email || website || socialUrl || mgmt.hou
         {mgmt.phone && <div><dt>Рабочий телефон</dt><dd><a href={`tel:${String(mgmt.phone).replace(/[^+\d]/g,'')}`}>{mgmt.phone}</a></dd></div>}
         {mgmt.email && <div><dt>Электронная почта</dt><dd><a href={`mailto:${mgmt.email}`}>{mgmt.email}</a></dd></div>}
         {website && <div><dt>Официальный сайт</dt><dd><a href={website} target="_blank" rel="noopener noreferrer">Перейти на сайт ↗</a></dd></div>}
-        {socialUrl && <div><dt>Социальная сеть</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу ↗</a></dd></div>}
+        {socialUrl && <div><dt>Страница VK</dt><dd><a href={socialUrl} target="_blank" rel="noopener noreferrer">Открыть страницу VK ↗</a></dd></div>}
+        {maxUrl && <div><dt>Канал MAX</dt><dd><a href={maxUrl} target="_blank" rel="noopener noreferrer">Открыть канал MAX ↗</a></dd></div>}
         {mgmt.hours && <div><dt>Режим работы</dt><dd>{mgmt.hours}</dd></div>}
       </dl></section>}
       {!hasContacts && <section class="side-panel"><p class="overline">КОНТАКТЫ</p><h2>Как связаться</h2><p class="director-role">Контактные сведения дополняются.</p></section>}
