@@ -15,7 +15,8 @@ const { title = site.title, description = site.introduction } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href={`${basePath('styles.css')}?v=20261104-ornament`} />
+    <link rel="stylesheet" href={`${basePath('styles.css')}?v=20261104-navigation`} />
+    <script is:inline defer src={basePath('reading-mode.js')}></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -26,12 +27,21 @@ const { title = site.title, description = site.introduction } = Astro.props;
           <span class="brand-text"><strong>Электронный справочник<br />учреждений культуры Хангаласского улуса</strong><small>Управление культуры и духовного развития · Хангаласский улус</small></span>
         </a>
         <nav aria-label="Основная навигация" class="top-nav">
+          <a class="return-link" href="https://uk-hangalas.saha.muzkult.ru/"><span aria-hidden="true">←</span> Вернуться на сайт УКиДР</a>
           <a href={basePath('') + '#catalog'}>Учреждения</a>
           <a href={basePath('upravlenie/')}>Об управлении</a>
           <a href={basePath('') + '#about'}>О справочнике</a>
+          <button class="reading-toggle" type="button" aria-expanded="false" aria-controls="reading-panel" aria-pressed="false">Версия для слабовидящих</button>
         </nav>
       </div>
     </header>
+    <section id="reading-panel" class="reading-panel" aria-label="Настройки версии для слабовидящих" hidden>
+      <div class="container reading-controls">
+        <label>Размер текста <select id="reading-size"><option value="normal">Увеличенный</option><option value="large">Крупный</option></select></label>
+        <label>Цвета <select id="reading-theme"><option value="light">Чёрный на белом</option><option value="dark">Белый на чёрном</option></select></label>
+        <button id="reading-reset" type="button">Обычная версия</button>
+      </div>
+    </section>
     <main id="main"><slot /></main>
     <footer class="footer">
       <div class="container footer-inner">

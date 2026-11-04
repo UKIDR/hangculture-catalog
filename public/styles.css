@@ -163,3 +163,57 @@ a:focus-visible,input:focus-visible,select:focus-visible{outline-color:#c68c70}
   .hero-copy{padding:54px 0 62px}
 }
 @media(max-width:390px){.brand-logo{width:50px;height:50px}}
+
+/* Expanded navigation: its own row keeps all five actions readable. */
+.header-inner{flex-direction:column;align-items:stretch;gap:14px}
+.top-nav{flex-wrap:wrap;justify-content:flex-start;gap:10px 24px;border-top:1px solid var(--line);padding:14px 0 0;white-space:normal;overflow:visible}
+.top-nav a,.top-nav .reading-toggle{font-size:15px!important;min-height:44px;display:inline-flex!important;align-items:center;justify-content:center;line-height:1.4;padding:10px 0}
+.top-nav .return-link{background:var(--deep);color:#fff;border:1px solid var(--deep);border-radius:8px;padding:10px 16px;gap:9px}
+.top-nav .return-link:hover{background:#3b5146;color:#fff}
+.top-nav .reading-toggle{margin-left:auto;border:1px solid #a69c8c;background:transparent;color:var(--ink);border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}
+.top-nav .reading-toggle:hover{background:#f1ede5}
+button:focus-visible{outline:3px solid #a7604c;outline-offset:3px}
+.reading-panel{background:#fff;border-bottom:2px solid currentColor;padding:20px 0}
+.reading-controls{display:flex;gap:18px 28px;flex-wrap:wrap;align-items:end}
+.reading-controls label{display:flex;flex-direction:column;gap:6px;font-weight:700}
+.reading-controls select,.reading-controls button{min-height:48px;border:2px solid currentColor;border-radius:4px;background:transparent;color:inherit;padding:8px 12px;max-width:100%;font:inherit}
+.reading-controls button{cursor:pointer}
+@media(max-width:650px){
+ .top-nav{gap:8px 16px;padding-top:12px;padding-bottom:6px}
+ .top-nav a,.top-nav .reading-toggle{font-size:14px!important;flex:0 1 auto}
+ .top-nav .return-link,.top-nav .reading-toggle{width:100%;margin-left:0}
+}
+
+/* Optional reading mode, applied to every page through the shared layout. */
+html[data-reading]{--reading-bg:#fff;--reading-ink:#111;--reading-text:20px}
+html[data-reading][data-reading-theme="dark"]{--reading-bg:#111;--reading-ink:#fff}
+html[data-reading][data-reading-size="large"]{--reading-text:24px}
+html[data-reading] body{background:var(--reading-bg)!important;color:var(--reading-ink)!important;font-family:Arial,sans-serif;font-size:var(--reading-text);line-height:1.8}
+html[data-reading] body *{color:var(--reading-ink)!important;background-color:transparent!important;background-image:none!important;border-color:var(--reading-ink)!important;box-shadow:none!important;text-shadow:none!important;letter-spacing:normal!important}
+html[data-reading] :is(.site-header,.hero,.directory,.about-section,.footer,.detail-intro,.detail-content,.birthdays-section,.reading-panel){background:var(--reading-bg)!important}
+html[data-reading] :is(p,small,dt,dd,label,input,select,button,.card-meta,.card-category,.card-action,.hero-link,.eyebrow,.overline,.detail-kicker,.breadcrumbs,.back-strip,.director-role,.director-name,.birthday-person a,.birthday-person span,.birthday-countdown,.footer-inner strong,.footer-inner span,.brand-text strong,.brand-text small){font-size:var(--reading-text)!important;line-height:1.8!important}
+html[data-reading] .top-nav a,html[data-reading] .top-nav .reading-toggle{font-size:var(--reading-text)!important}
+html[data-reading] h1{font-size:clamp(32px,5vw,56px)!important;line-height:1.3!important}
+html[data-reading] h2{font-size:30px!important;line-height:1.4!important}
+html[data-reading] h3{font-size:26px!important;line-height:1.4!important}
+html[data-reading] a{text-decoration:underline;text-underline-offset:.2em}
+html[data-reading] :focus-visible{outline:3px solid var(--reading-ink)!important;outline-offset:4px}
+html[data-reading] .hero-decor,html[data-reading] .placeholder-art{display:none}
+html[data-reading] .hero-copy{max-width:100%;width:100%}
+html[data-reading] .hero h1,html[data-reading] .hero p{max-width:100%}
+html[data-reading] .brand-text{max-width:none}
+html[data-reading] .cards,html[data-reading] .filters,html[data-reading] .detail-grid,html[data-reading] .about-inner,html[data-reading] .birthday-list{grid-template-columns:1fr}
+html[data-reading] .section-heading{display:block}
+html[data-reading] .search-field,html[data-reading] .select-field{height:auto;min-height:58px}
+html[data-reading] .search-field input,html[data-reading] .select-field select{padding-top:10px;padding-bottom:10px}
+html[data-reading] .card-meta,html[data-reading] .card-body h3{min-height:0}
+html[data-reading] .demo-badge{background:var(--reading-bg)!important;border:1px solid currentColor}
+html[data-reading] .info-list>div{grid-template-columns:1fr;gap:6px}
+html[data-reading] .birthday-entry{flex-wrap:wrap}
+html[data-reading] .top-nav .reading-toggle{margin-left:0}
+html[data-reading] :is(p,h1,h2,h3,a,dd,strong,small){overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+html[data-reading][data-reading-theme="dark"]{color-scheme:dark}
+html[data-reading][data-reading-theme="light"]{color-scheme:light}
+html[data-reading] .top-nav a{transition:none}
+@media(max-width:650px){html[data-reading] .brand{flex-direction:column;align-items:flex-start}html[data-reading] .reading-controls label{width:100%}}
