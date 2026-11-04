@@ -1,0 +1,19 @@
+{
+  "title": "МБУ ДО \"Покровская детская художественная школа\"",
+  "slug": "hud-shkola",
+  "category": "podved",
+  "nasleg": "ГП \"Город Покровск\"",
+  "settlement": "г. Покровск",
+  "address": "Республика Саха (Якутия), г. Покровск, ул. Орджоникидзе, 83/1 ",
+  "cover_image": "/media/hud.jpg",
+  "director_name": "Харитонов Александр Васильевич",
+  "director_position": "Директор",
+  "phone": "8(41144)43-7-24",
+  "email": "khudoshka@mail.ru",
+  "website": "https://pkr-dhsh.obr.sakha.gov.ru/",
+  "social_url": "https://vk.ru/childrensartschoolpokrovsk",
+  "hours": "Пн-Пт: 08:00 - 18:00\nСб,Вс: Выходной",
+  "birthday_public": false,
+  "published": true,
+  "demo": false
+}
