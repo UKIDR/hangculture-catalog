@@ -1,14 +1,16 @@
+import order from '../data/institution-order.json';
+import { sortInstitutions } from './institution-order.js';
 const files = import.meta.glob('../data/institutions/*.json', { eager: true, import: 'default' });
 
 export function getInstitutions() {
-  return Object.entries(files)
+  const institutions = Object.entries(files)
     .map(([path, data]) => ({
       ...data,
       // Filename is the source of truth for a stable URL.
       slug: path.split('/').at(-1).replace(/\.json$/i, ''),
     }))
-    .filter((item) => item.published === true)
-    .sort((a, b) => String(a.title || '').localeCompare(String(b.title || ''), 'ru'));
+    .filter((item) => item.published === true);
+  return sortInstitutions(institutions, order.institutions);
 }
 
 export function categoryName(category) {

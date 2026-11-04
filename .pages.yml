@@ -118,6 +118,23 @@ content:
         label: Демонстрационная запись (отмечается на сайте)
         type: boolean
 
+  - name: institution_order
+    label: Порядок учреждений
+    type: file
+    path: src/data/institution-order.json
+    format: json
+    fields:
+      - name: institutions
+        label: Учреждения — порядок на сайте
+        type: reference
+        list: true
+        description: "Перетаскивайте строки за значок слева и сохраните. Новое учреждение добавьте через Add item и выберите по названию. Учреждения вне списка появятся в конце по алфавиту. Удаление строки из этого списка не удаляет учреждение. Неопубликованные учреждения на сайте не показываются."
+        options:
+          collection: institutions
+          value: "{path}"
+          label: "{title}"
+          search: "title,nasleg,settlement"
+
   - name: management
     label: Об управлении (УКиДР)
     type: file

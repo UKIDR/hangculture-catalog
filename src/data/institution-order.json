@@ -1,0 +1,6 @@
+{
+  "institutions": [
+    "src/data/institutions/erkeeni-tehtur.json",
+    "src/data/institutions/bargaryy-oktem.json"
+  ]
+}
