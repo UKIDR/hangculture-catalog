@@ -5,6 +5,6 @@
   "nasleg": "Тестовый наслег",
   "settlement": "Тестовый населённый пункт",
   "birthday_public": false,
-  "published": true,
+  "published": false,
   "demo": true
 }
