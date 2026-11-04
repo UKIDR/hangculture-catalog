@@ -1,0 +1,20 @@
+{
+  "title": "МБУК «Хангаласский улусный краеведческий музей имени Г. В. Ксенофонтова»",
+  "slug": "museum",
+  "category": "podved",
+  "nasleg": "ГП \"Город Покровск\"",
+  "settlement": "г. Покровск",
+  "address": "Республика Саха (Якутия), Хангаласский улус, г. Покровск, ул. Орджоникидзе, 50 а",
+  "cover_image": "/media/muzej-g-v-ksenofontova.jpg",
+  "director_name": "Мартынова Елизавета Анатольевна",
+  "director_position": "Директор",
+  "phone": "8(41144)43-3-01",
+  "email": "hangalas_museum@mail.ru",
+  "website": "https://hangalas-museum.culture14.ru/",
+  "social_url": "https://vk.ru/hangalas_museum",
+  "max_url": "https://max.ru/id1431011739_gos",
+  "hours": "Пн-Пт: 09:00-18:00\nОбед:  13:00-14:00\nСб, Вс: Выходной",
+  "birthday_public": false,
+  "published": true,
+  "demo": false
+}
