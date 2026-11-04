@@ -1,0 +1,20 @@
+{
+  "title": "МБУК \"Хангаласская межпоселенческая централизованная библиотечная система\"",
+  "slug": "biblioteka",
+  "category": "podved",
+  "nasleg": "ГП \"Город Покровск\"",
+  "settlement": "г. Покровск",
+  "address": "Республика Саха (Якутия), Хангаласский улус, г. Покровск, ул. Братьев Ксенофонтовых, 22",
+  "cover_image": "/media/biblio.jpg",
+  "director_name": "Адамова Ираида Иннокентьевна",
+  "director_position": "Директор",
+  "phone": "+7(41144)23-0-09",
+  "email": "pokrlib@mail.ru",
+  "website": "https://khangalas-lib.ru/",
+  "social_url": "https://vk.ru/xangbiblio",
+  "max_url": "https://max.ru/id1431008831_gos",
+  "hours": "Пн-Пт: 09:00-19:00\nСб:    10:00-18:00\nВс:    Выходной",
+  "birthday_public": false,
+  "published": true,
+  "demo": false
+}
