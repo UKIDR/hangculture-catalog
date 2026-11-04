@@ -143,39 +143,23 @@ a:focus-visible,input:focus-visible,select:focus-visible{outline-color:#c68c70}
 .brand-text small{font-size:10.5px}
 .hero-inner{justify-content:space-between;gap:30px}
 .hero-copy{flex:1 1 auto;max-width:760px}
-.hero-decor{flex:0 0 min(34vw,400px);min-width:280px;display:flex;align-items:center;justify-content:center;position:relative;min-height:420px}
-.hero-decor-rings,.hero-decor-medallion{position:absolute;border-radius:50%;pointer-events:none}
-.hero-decor-rings{width:min(31vw,360px);height:min(31vw,360px);border:1px solid rgba(234,206,158,.10);box-shadow:0 0 0 min(6vw,72px) rgba(234,206,158,.05),0 0 0 min(12vw,138px) rgba(234,206,158,.025)}
-.hero-decor-medallion{width:min(20vw,220px);height:min(20vw,220px);border:1px solid rgba(232,199,143,.16);background:radial-gradient(circle at 50% 50%, rgba(224,193,139,.06), rgba(224,193,139,0) 68%)}
-.medallion-line{position:absolute;display:block;background:rgba(232,199,143,.14);left:50%;top:50%;transform:translate(-50%,-50%)}
-.medallion-line--vertical{width:1px;height:76%}
-.medallion-line--horizontal{height:1px;width:76%}
-.medallion-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;border:1px solid rgba(232,199,143,.18);box-shadow:0 0 0 18px rgba(232,199,143,.035)}
+.hero::before,.hero::after{content:none}
+.hero-decor{flex:0 0 min(32vw,370px);min-width:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hero-ornament{display:block;width:100%;height:auto;opacity:.62}
 @media(max-width:1050px){
   .brand-logo{width:66px;height:66px}
-  .hero-inner{min-height:400px;gap:20px}
-  .hero-decor{flex-basis:300px;min-width:230px;min-height:310px}
+  .hero-inner{min-height:400px;gap:24px}
+  .hero-decor{flex-basis:28%;}
 }
 @media(max-width:790px){
   .brand-logo{width:58px;height:58px}
-  .hero-inner{flex-direction:column;align-items:flex-start}
   .hero-copy{max-width:none}
-  .hero-decor{width:100%;min-width:0;min-height:150px;flex-basis:auto;justify-content:flex-end;margin-top:-8px}
-  .hero-decor-rings{width:220px;height:220px;box-shadow:0 0 0 42px rgba(234,206,158,.05),0 0 0 84px rgba(234,206,158,.025)}
-  .hero-decor-medallion{width:132px;height:132px}
-  .medallion-core{width:42px;height:42px;box-shadow:0 0 0 12px rgba(232,199,143,.035)}
+  .hero-decor{display:none}
 }
 @media(max-width:650px){
   .brand-logo{width:56px;height:56px}
   .brand-text strong{font-size:12.5px}
   .brand-text small{font-size:9px}
-  .hero-copy{padding:54px 0 26px}
-  .hero-decor{min-height:110px;justify-content:flex-end;margin-top:0;padding-bottom:18px}
-  .hero-decor-rings{width:180px;height:180px;box-shadow:0 0 0 30px rgba(234,206,158,.045),0 0 0 60px rgba(234,206,158,.02)}
-  .hero-decor-medallion{width:108px;height:108px}
-  .medallion-core{width:34px;height:34px;box-shadow:0 0 0 10px rgba(232,199,143,.03)}
+  .hero-copy{padding:54px 0 62px}
 }
-@media(max-width:390px){
-  .brand-logo{width:50px;height:50px}
-  .hero-decor{display:none}
-}
+@media(max-width:390px){.brand-logo{width:50px;height:50px}}
