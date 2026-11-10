@@ -1,5 +1,12 @@
 {
   "institutions": [
+    "src/data/institutions/museum.json",
+    "src/data/institutions/biblioteka.json",
+    "src/data/institutions/hud-shkola.json",
+    "src/data/institutions/dshi.json",
+    "src/data/institutions/bulg-dshi.json",
+    "src/data/institutions/kach-dshi.json",
+    "src/data/institutions/theater-shkola.json",
     "src/data/institutions/erkeeni-tehtur.json",
     "src/data/institutions/bargaryy-oktem.json"
   ]
